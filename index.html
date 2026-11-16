@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Vijaya Store | Pre-Order & Counter Pickup — Kirana, Fancy, Stationery,
+      Xerox, Bills & UPI
+    </title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="navbar">
+      <div class="container nav-inner">
+        <div class="brand">
+          <span class="brand-icon">🏪</span>
+          <div>
+            <h1 id="shop-title">Vijaya Store</h1>
+            <p id="shop-tagline">
+              Kirana • Fancy • Stationery • Xerox • Digital Bills, Recharges
+              &amp; UPI
+            </p>
+          </div>
+        </div>
+        <div class="nav-actions">
+          <span class="status-badge">🟢 Counter Open: 7:00 AM – 9:30 PM</span>
+          <button class="cart-toggle-btn" onclick="toggleCart()">
+            🛍️ Pre-Order List (<span id="cart-count">0</span>)
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="pill-tag"
+            >🏪 Pre-Order Online • Collect at Store Counter</span
+          >
+          <h2>Skip the Queue: Pre-Order &amp; Collect at the Counter</h2>
+          <p>
+            Select groceries, cool drinks, stationery, fancy items, Xerox
+            printouts, or pre-book bills, recharges &amp; UPI services via
+            WhatsApp.
+            <strong
+              >Note: No home delivery is available — customers must visit the
+              shop counter to collect packed items and receipts.</strong
+            >
+          </p>
+          <div class="hero-btns">
+            <a href="#catalog" class="btn-primary"
+              >Browse &amp; Pre-Order Items</a
+            >
+            <a href="#digital-services" class="btn-secondary"
+              >⚡ Bills, Recharges &amp; UPI</a
+            >
+          </div>
+        </div>
+        <div class="service-highlights">
+          <div class="mini-card">
+            🛒 <strong>Kirana &amp; Groceries</strong
+            ><span>Packed &amp; ready for pickup</span>
+          </div>
+          <div class="mini-card">
+            🥤 <strong>Chilled Cool Drinks</strong
+            ><span>Soft drinks, juices &amp; water</span>
+          </div>
+          <div class="mini-card">
+            🖨️ <strong>Xerox &amp; Printouts</strong
+            ><span>Pre-send &amp; collect copies</span>
+          </div>
+          <div class="mini-card">
+            💳 <strong>Bills, Recharges &amp; UPI</strong
+            ><span>Pay via UPI or collect receipt</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Store Catalog Section -->
+    <main class="container" id="catalog">
+      <div class="section-header">
+        <h3>🛍️ Store Catalog (Counter Pickup)</h3>
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search rice, pens, Sprite, Xerox, UPI..."
+          oninput="renderProducts()"
+        />
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="category-bar" id="category-bar"></div>
+
+      <!-- Products Grid -->
+      <div class="product-grid" id="product-grid"></div>
+
+      <!-- Digital Services, Bills & UPI Counter Request -->
+      <section class="digital-box" id="digital-services">
+        <div class="digital-info">
+          <span class="pill-tag">🧾 Counter Pickup &amp; Manual Receipt</span>
+          <h3>Current Bills, Mobile Recharges, DTH &amp; UPI Services</h3>
+          <p>
+            Send your service number, mobile number, or UPI transfer/cash
+            request on WhatsApp before visiting.
+            <strong
+              >Pay at the counter (or via UPI) and collect your physical bill
+              receipt or cash manually at Vijaya Store.</strong
+            >
+          </p>
+          <div class="upi-chip-box">
+            <span>💳 Official Store UPI ID:</span>
+            <strong id="display-upi-id">vijayastore@upi</strong>
+            <button type="button" class="copy-upi-btn" onclick="copyUpiId()">
+              Copy
+            </button>
+          </div>
+        </div>
+        <form class="digital-form" onsubmit="sendServiceRequest(event)">
+          <select id="service-type" required>
+            <option value="Current Bill Payment">
+              💡 Electricity / Current Bill
+            </option>
+            <option value="Mobile Recharge">
+              📱 Mobile Recharge (Jio / Airtel / Vi / BSNL)
+            </option>
+            <option value="DTH Recharge">
+              📡 DTH Bill / Recharge (Tata Play / Airtel / Sun)
+            </option>
+            <option value="UPI Money Transfer / Cash Withdrawal">
+              💳 UPI Money Transfer / Cash Counter Service
+            </option>
+            <option value="Xerox / Document Printout">
+              🖨️ Xerox / PDF Printout Request
+            </option>
+          </select>
+          <input
+            type="text"
+            id="service-number"
+            placeholder="Enter Service No. / Mobile No. / UPI Ref"
+            required
+          />
+          <input
+            type="text"
+            id="service-amount"
+            placeholder="Amount (₹) & Pickup Time (e.g. ₹299 plan, coming in 15 mins)"
+            required
+          />
+          <button type="submit" class="btn-primary full-width">
+            📲 Send Counter Pre-Request on WhatsApp
+          </button>
+        </form>
+      </section>
+    </main>
+
+    <!-- Slide-Out Pre-Order & UPI Checkout Drawer -->
+    <aside class="cart-drawer" id="cart-drawer">
+      <div class="cart-header">
+        <h3>🛍️ Your Counter Pre-Order</h3>
+        <button class="close-btn" onclick="toggleCart()">✕</button>
+      </div>
+      <div class="pickup-notice">
+        🏪 <strong>Store Pickup Only:</strong> No home delivery. Collect packed
+        items &amp; receipts manually at the counter.
+      </div>
+      <div class="cart-items" id="cart-items"></div>
+      <div class="cart-footer">
+        <div class="total-row">
+          <span>Estimated Counter Bill:</span>
+          <strong>₹<span id="cart-total">0</span></strong>
+        </div>
+
+        <!-- Payment Mode Selector -->
+        <div class="pay-mode-switch">
+          <label class="pay-option">
+            <input
+              type="radio"
+              name="payMode"
+              value="Counter Cash / UPI"
+              checked
+              onchange="toggleUpiBox()"
+            />
+            <span>🏪 Pay at Counter</span>
+          </label>
+          <label class="pay-option">
+            <input
+              type="radio"
+              name="payMode"
+              value="Paid Online via UPI"
+              onchange="toggleUpiBox()"
+            />
+            <span>💳 Pay Now (UPI)</span>
+          </label>
+        </div>
+
+        <!-- Dynamic UPI QR & Pay Box (Hidden unless Pay Now via UPI is selected) -->
+        <div
+          class="upi-checkout-box"
+          id="upi-checkout-box"
+          style="display: none"
+        >
+          <div class="upi-qr-row">
+            <img id="upi-qr-img" src="" alt="UPI QR Code" />
+            <div class="upi-qr-details">
+              <p class="upi-id-label">
+                UPI ID: <strong id="cart-upi-id">vijayastore@upi</strong>
+              </p>
+              <a id="upi-deep-link" href="#" class="btn-upi-app"
+                >📲 Open UPI App</a
+              >
+            </div>
+          </div>
+          <input
+            type="text"
+            id="upi-utr-input"
+            placeholder="Enter 12-digit UPI Ref / UTR No. (after paying)"
+          />
+        </div>
+
+        <input
+          type="text"
+          id="customer-name"
+          placeholder="Your Name"
+          required
+        />
+        <input
+          type="text"
+          id="customer-note"
+          placeholder="Expected Pickup Time (e.g. In 15 mins / 6:30 PM)"
+        />
+        <button class="btn-whatsapp" onclick="checkoutWhatsApp()">
+          📲 Send Pre-Order via WhatsApp
+        </button>
+      </div>
+    </aside>
+
+    <!-- Admin Password Modal -->
+    <div class="modal-backdrop" id="admin-login-modal">
+      <div class="modal-card">
+        <h3>🔐 Shop Owner Login</h3>
+        <p>
+          Enter Admin PIN to edit item rates, UPI ID, stock status, or add new
+          products.
+        </p>
+        <input
+          type="password"
+          id="admin-pin-input"
+          placeholder="Enter Admin PIN"
+          onkeydown="if (event.key === 'Enter') verifyAdminPin();"
+        />
+        <p class="error-text" id="admin-login-error"></p>
+        <div class="modal-actions">
+          <button class="btn-secondary" onclick="closeAdminLogin()">
+            Cancel
+          </button>
+          <button class="btn-primary" onclick="verifyAdminPin()">
+            Unlock Panel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin Rate & UPI Manager Modal -->
+    <div class="modal-backdrop" id="admin-panel-modal">
+      <div class="admin-panel-card">
+        <div class="admin-header">
+          <div>
+            <h3>⚙️ Vijaya Store — Rate, Stock &amp; UPI Settings</h3>
+            <p>
+              Update your Store UPI ID or item rates below and click
+              <strong>Save All Changes</strong>.
+            </p>
+          </div>
+          <button class="close-btn" onclick="closeAdminPanel()">✕</button>
+        </div>
+
+        <!-- Store UPI ID Setting Bar -->
+        <div class="admin-upi-bar">
+          <label for="admin-upi-input"
+            >💳 <strong>Shop UPI ID (for QR &amp; App Payments):</strong></label
+          >
+          <input
+            type="text"
+            id="admin-upi-input"
+            placeholder="e.g. 9876543210@ybl or vijayastore@okicici"
+          />
+        </div>
+
+        <!-- Quick Add New Item Form -->
+        <form class="add-item-bar" onsubmit="adminAddProduct(event)">
+          <input
+            type="text"
+            id="new-item-name"
+            placeholder="New Item Name (e.g. Good Day Biscuit)"
+            required
+          />
+          <input
+            type="text"
+            id="new-item-unit"
+            placeholder="Unit (e.g. 1 Pack)"
+            required
+          />
+          <select id="new-item-cat">
+            <option value="Kirana">Kirana</option>
+            <option value="Cool Drinks">Cool Drinks</option>
+            <option value="Stationery">Stationery</option>
+            <option value="Fancy">Fancy</option>
+            <option value="Xerox & Prints">Xerox &amp; Prints</option>
+            <option value="Bills & Recharges">Bills &amp; Recharges</option>
+          </select>
+          <input
+            type="number"
+            id="new-item-price"
+            placeholder="Price (₹)"
+            min="0"
+            required
+          />
+          <button type="submit" class="btn-primary">+ Add Item</button>
+        </form>
+
+        <!-- Editable Rates Table -->
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Item Name</th>
+                <th>Unit / Size</th>
+                <th>Category</th>
+                <th>Rate (₹)</th>
+                <th>In Stock</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="admin-table-body"></tbody>
+          </table>
+        </div>
+
+        <div class="admin-footer">
+          <button class="btn-secondary" onclick="resetDefaultRates()">
+            ↺ Reset Defaults
+          </button>
+          <div style="display: flex; gap: 0.6rem">
+            <button class="btn-secondary" onclick="exportRatesFile()">
+              📄 Backup Rates (.json)
+            </button>
+            <button class="btn-primary" onclick="saveAdminChanges()">
+              💾 Save All Changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container footer-inner">
+        <p>
+          <strong>Vijaya Store</strong> • Pre-Order Online &amp; Collect
+          Items/Receipts Manually at Store Counter (No Home Delivery)
+        </p>
+        <button class="admin-trigger-btn" onclick="openAdminLogin()">
+          🔐 Admin
+        </button>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
