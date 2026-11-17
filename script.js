@@ -5,7 +5,7 @@ const SHOP_CONFIG = {
   name: "Vijaya Store",
   defaultWhatsapp: "918331863654", // Permanent fallback: 91 + 10-digit WhatsApp number
   defaultUpiId: "8331863654@ybl", // Permanent fallback: Shop UPI ID
-  adminPin: "5342", // Change to a private PIN before uploading to GitHub!
+  adminPin: "2414", // Change to a private PIN before uploading to GitHub!
 };
 
 const STORAGE_KEY = "vijaya_store_products_v2";
